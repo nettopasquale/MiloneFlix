@@ -47,15 +47,18 @@ export const createMovie = async (req, res) => {
     console.log("Corpo da requisição: ", req.body);
 }
 
-// listar filmes
+// listar filmes, pelo titulo
 
 export const getAllMovies = async (req, res) => {
     try {
-        const Movies = await Movie.find();
-        res.json(Movies);
+        const { titulo } = req.query;
+        const filtro = titulo ? { titulo: { $regex: titulo, $options: "i" } } : {}; //buscar por titulo 
+        
+        const movies = await Movie.find(filtro);
+        res.status(200).json(movies);
     }
     catch (erro) {
-        res.status(500).json({ erro: erro.message });
+        res.status(500).json({ erro: "Erro ao buscar filmes." });
     }
 }
 
