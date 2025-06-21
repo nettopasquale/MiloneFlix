@@ -2,6 +2,7 @@
 
 Projeto Full-Stack de Programação Web de catálogo de filmes e séries, com funcionalidades completas de busca, cadastro, edição e exclusão. Integra dados da [API TMDB](https://www.themoviedb.org/) e do banco MongoDB local.
 
+Link do Frontend: https://milone-flix.vercel.app/
 ---
 
 ## 🚀 Tecnologias Utilizadas
@@ -91,6 +92,9 @@ npm run dev
 ```bash
 npm run dev
 ```
+
+### 4. Link do Backend
+- Backend online: https://miloneflix-api.onrender.com
 
 Autor
 Pasquale Milone Netto
