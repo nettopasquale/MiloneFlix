@@ -18,7 +18,7 @@ export default function Listar() {
     setFiltroSensivelAtivo,
     carregandoInicial,
     erroTotal,
-    filtroSensivelAtivo
+    filtroSensivelAtivo,
   } = useFilmes();
 
   return (

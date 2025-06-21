@@ -17,7 +17,7 @@ export default function useBuscar() {
     try {
       //Busca MONGO
       const resLocais = await axios.get(
-        `http://localhost:8080/movies?titulo=${busca}`
+        `https://miloneflix.onrender.com/movies?titulo=${busca}`
       );
 
       //busca API
@@ -96,7 +96,7 @@ export default function useBuscar() {
   const salvarEdicao = async (dadosEditados) => {
     try {
       await axios.put(
-        `http://localhost:8080/movies/${dadosEditados._id}`,
+        `https://miloneflix.onrender.com/movies/${dadosEditados._id}`,
         dadosEditados
       );
       setStatusEdicao("sucesso");
@@ -110,7 +110,7 @@ export default function useBuscar() {
   //deletar o filme do Banco
   const deletarFilme = async (filme) => {
   try {
-    await axios.delete(`http://localhost:8080/movies/${filme._id}`);
+    await axios.delete(`https://miloneflix.onrender.com/movies/${filme._id}`);
     setStatusEdicao("sucesso");
 
     // Remove da lista local após deletar

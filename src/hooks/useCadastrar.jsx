@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../schema/schema";
-import imageCompression from 'browser-image-compression';
+import imageCompression from "browser-image-compression";
 import axios from "axios";
 
 export default function useCadastrar() {
@@ -23,14 +23,14 @@ export default function useCadastrar() {
   });
 
   //handler da mudança de estado da imagem
-  const handleImageChange = async(e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const options = {
         maxSizeMB: 1, // máx 1MB
         maxWidthOrHeight: 800, // se o tamanho for maior é redmensionado
-        useWebWorker: true //melhorar performance
-      }
+        useWebWorker: true, //melhorar performance
+      };
 
       try {
         const compressedFile = await imageCompression(file, options);
@@ -41,7 +41,7 @@ export default function useCadastrar() {
           reader.readAsDataURL(compressedFile);
         };
       } catch (error) {
-        console.error("Erro ao comprimir a imagem", error)
+        console.error("Erro ao comprimir a imagem", error);
       }
     }
   };
@@ -49,7 +49,7 @@ export default function useCadastrar() {
   //submit do formulário
   const onSubmit = async (data) => {
     try {
-      await axios.post("http://localhost:8080/movies", data);
+      await axios.post("https://miloneflix.onrender.com/movies", data);
       setSubmitStatus("success"); //muda status pra sucesso
     } catch (error) {
       console.error("Erro ao cadastrar:", error);

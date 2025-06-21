@@ -2,7 +2,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <>
@@ -109,7 +109,4 @@ const Header = () => {
       </header>
     </>
   );
-};
-
-// bg-[var(--Background-Neutral-Tertiary,#303030)]
-export default Header;
+}

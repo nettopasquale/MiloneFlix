@@ -46,7 +46,7 @@ export default function useModal(filme, onSave) {
     }
   };
 
-    return {
+  return {
     dados,
     avaliacao,
     setAvaliacao,

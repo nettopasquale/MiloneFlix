@@ -26,7 +26,7 @@ export default function useFilmes() {
     const fetchLocais = async () => {
       try {
         // Ajuste conforme sua rota local
-        const res = await axios.get("http://localhost:8080/movies");
+        const res = await axios.get("https://miloneflix.onrender.com/movies");
         setFilmesLocais(res.data);
         setErroFilmesLocais(false);
       } catch (err) {
