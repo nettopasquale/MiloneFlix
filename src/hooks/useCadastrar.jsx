@@ -38,8 +38,8 @@ export default function useCadastrar() {
         reader.onloadend = () => {
           setPreview(reader.result); // Imagem comprimida
           setValue("imagem", reader.result); // NOTAR AQUI
-          reader.readAsDataURL(compressedFile);
         };
+        reader.readAsDataURL(compressedFile);
       } catch (error) {
         console.error("Erro ao comprimir a imagem", error);
       }
