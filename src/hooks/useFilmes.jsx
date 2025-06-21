@@ -14,6 +14,7 @@ export default function useFilmes() {
   const [isFetching, setIsFetching] = useState(false);
   const loaderRef = useRef(null);
   const [filtroSensivelAtivo, setFiltroSensivelAtivo] = useState(true);
+  
 
   const navigate = useNavigate();
   //voltar para a Home

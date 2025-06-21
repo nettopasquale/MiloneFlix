@@ -11,4 +11,5 @@ export const schema = yup.object().shape({
   elenco: yup.string().required("O elenco é obrigatório"),
   classificacao: yup.string().required("A classificação é obrigatória"),
   sinopse: yup.string().required("A sinopse é obrigatória"),
+  imagem: yup.string()
 });

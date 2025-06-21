@@ -71,6 +71,8 @@ export default function useCadastrar() {
   const voltarParaHome = () => {
     navigate("/"); // do react-router-dom
   };
+  console.log(watch('imagem'));
+
   return {
     preview,
     register,
