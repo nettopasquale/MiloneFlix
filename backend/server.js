@@ -14,7 +14,7 @@ let corsPermitidos = [
   "http://localhost:5000", //API TMDB
   "http://localhost:5173", //React FrontEnd
   "http://localhost:8080", // Server local (teste)
-  "https://milone-flix.vercel.app/" //Produção
+  "https://milone-flix.vercel.app" //Produção
 ];
 
 const corsOptions = {
