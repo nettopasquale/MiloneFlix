@@ -4,21 +4,20 @@ import ModalFilme from "../../components/ModalFIlme/ModalFilme";
 import useBuscar from "../../hooks/useBuscar";
 
 export default function Buscar() {
-  
-    //hook de useBuscar, deixar o código limpo
-    const {
+  //hook de useBuscar, deixar o código limpo
+  const {
     busca,
     filmes,
     resultadoBuscado,
     filmeEmEdicao,
     statusEdicao,
     setBusca,
-    buscarFilmes,
     buscarDetalhesFilmeTMDB,
     abrirModalEditar,
     fecharModal,
     salvarEdicao,
-    } = useBuscar();
+    deletarFilme,
+  } = useBuscar();
 
   return (
     <PageLayout>
@@ -84,6 +83,7 @@ export default function Buscar() {
             onClose={fecharModal}
             onSave={salvarEdicao} // passa para o modal
             status={statusEdicao} // usado dentro do modal
+            onDelete={deletarFilme} //deletar
           />
         )}
       </section>

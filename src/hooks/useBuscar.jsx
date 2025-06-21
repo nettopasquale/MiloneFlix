@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { set } from "react-hook-form";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -107,6 +106,21 @@ export default function useBuscar() {
     }
   };
 
+
+  //deletar o filme do Banco
+  const deletarFilme = async (filme) => {
+  try {
+    await axios.delete(`http://localhost:8080/movies/${filme._id}`);
+    setStatusEdicao("sucesso");
+
+    // Remove da lista local após deletar
+    setFilmes((prev) => prev.filter((f) => f._id !== filme._id));
+  } catch (err) {
+    console.error("Erro ao deletar filme:", err);
+    setStatusEdicao("erro");
+  }
+};
+
   //garante a função de buscar filmes seja chamada apos 0.5s
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -133,5 +147,6 @@ export default function useBuscar() {
     abrirModalEditar,
     fecharModal,
     salvarEdicao,
+    deletarFilme
   };
 }

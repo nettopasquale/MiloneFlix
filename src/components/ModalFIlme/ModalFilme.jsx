@@ -1,29 +1,27 @@
-import { useState, useEffect } from "react";
 import AvaliacaoEstrelas from "../AvaliacaoEstrelas/AvaliacaoEstrelas";
 import InputModal from "../InputModal/InputModal";
+import useModal from "../../hooks/useModal";
 
-export default function ModalFilme({ filme, onClose, onSave, status }) {
+export default function ModalFilme({
+  filme,
+  onClose,
+  onSave,
+  onDelete,
+  status,
+}) {
   if (!filme) return null;
+
+  const {
+    dados,
+    avaliacao,
+    setAvaliacao,
+    handleChange,
+    handleSalvar,
+    handleImageChange,
+  } = useModal(filme, onSave);
 
   const isTMDB = filme.id && typeof filme.id === "number";
   const podeEditar = !isTMDB;
-
-  const [dados, setDados] = useState(filme);
-  const [avaliacao, setAvaliacao] = useState(filme.avaliacao || 0);
-
-  useEffect(() => {
-    setDados(filme);
-    setAvaliacao(filme.avaliacao || 0);
-  }, [filme]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDados((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSalvar = () => {
-    onSave({ ...dados, avaliacao });
-  };
 
   // Mensagem de sucesso
   if (status === "sucesso") {
@@ -162,18 +160,26 @@ export default function ModalFilme({ filme, onClose, onSave, status }) {
           </div>
 
           <div className="space-y-6">
-            <label className="text-white font-bold text-2xl">Capa</label>
-            {dados.imagem ? (
-              <img
-                src={dados.imagem}
-                alt="Preview da Capa"
-                className="w-full h-auto max-h-96 object-contain rounded"
-              />
-            ) : (
-              <span className="text-white text-sm text-center">
-                Nenhuma imagem selecionada
-              </span>
-            )}
+            <div className="flex flex-col items-center justify-center">
+              <label className="text-white font-bold text-2xl">Capa</label>
+              {dados.imagem ? (
+                <img
+                  src={dados.imagem}
+                  alt="Preview da Capa"
+                  className="w-full h-auto max-h-96 object-contain rounded"
+                />
+              ) : (
+                <span className="text-white text-sm text-center">
+                  Nenhuma imagem selecionada
+                </span>
+              )}
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              className="w-full p-2 mt-4 text-sm border rounded bg-white"
+              onChange={handleImageChange}
+            />
           </div>
         </div>
 
@@ -195,6 +201,17 @@ export default function ModalFilme({ filme, onClose, onSave, status }) {
               onClick={handleSalvar}
             >
               Salvar alterações
+            </button>
+
+            <button
+              className="bg-red-600 text-white px-4 py-2 rounded font-bold"
+              onClick={() => {
+                if (confirm("Tem certeza que deseja deletar este filme?")) {
+                  onDelete?.(dados);
+                }
+              }}
+            >
+              Deletar
             </button>
           </div>
         )}

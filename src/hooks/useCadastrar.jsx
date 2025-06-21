@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../schema/schema";
+import imageCompression from 'browser-image-compression';
 import axios from "axios";
 
 export default function useCadastrar() {
@@ -22,15 +23,26 @@ export default function useCadastrar() {
   });
 
   //handler da mudança de estado da imagem
-  const handleImageChange = (e) => {
+  const handleImageChange = async(e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-        setValue("imagem", reader.result); // NOTAR AQUI
-      };
-      reader.readAsDataURL(file);
+      const options = {
+        maxSizeMB: 1, // máx 1MB
+        maxWidthOrHeight: 800, // se o tamanho for maior é redmensionado
+        useWebWorker: true //melhorar performance
+      }
+
+      try {
+        const compressedFile = await imageCompression(file, options);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreview(reader.result); // Imagem comprimida
+          setValue("imagem", reader.result); // NOTAR AQUI
+          reader.readAsDataURL(compressedFile);
+        };
+      } catch (error) {
+        console.error("Erro ao comprimir a imagem", error)
+      }
     }
   };
 

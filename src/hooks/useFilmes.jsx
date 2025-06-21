@@ -15,7 +15,7 @@ export default function useFilmes() {
   const loaderRef = useRef(null);
   const [filtroSensivelAtivo, setFiltroSensivelAtivo] = useState(true);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   //voltar para a Home
   const voltarParaHome = () => {
     navigate("/"); // do react-router-dom

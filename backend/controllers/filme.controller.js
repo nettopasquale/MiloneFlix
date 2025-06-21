@@ -52,7 +52,7 @@ export const createMovie = async (req, res) => {
 export const getAllMovies = async (req, res) => {
     try {
         const { titulo } = req.query;
-        const filtro = titulo ? { titulo: { $regex: titulo, $options: "i" } } : {}; //buscar por titulo 
+        const filtro = titulo ? { titulo: { $regex: titulo, $options: "i" } } : {}; //buscar por titulo
         
         const movies = await Movie.find(filtro);
         res.status(200).json(movies);
@@ -60,20 +60,23 @@ export const getAllMovies = async (req, res) => {
     catch (erro) {
         res.status(500).json({ erro: "Erro ao buscar filmes." });
     }
+    console.log("Corpo da requisição: ", req.body);
 }
 
 // listar filmes por ID
 
 export const getMovieByID = async (req, res) => {
     try {
-        const movie = await Movie.findById(req.params.id);
+        const movie = await Movie.findByIdAndUpdate(req.params.id);
 
         if (!movie) return res.status(404).json({ message: "Filme não foi encontrado!" });
-        res.json(Movie);
+        res.status(200).json(movie);
     }
     catch (erro) {
-        res.status(500).json({ erro: erro.message })
+        console.error(erro);
+        res.status(500).json({ erro: "Erro ao buscar filme" })
     }
+    console.log("Corpo da requisição: ", req.body);
 }
 
 // atualizar filmes
@@ -85,11 +88,14 @@ export const updateMovie = async (req, res) => {
         });
 
         if (!movie) return res.status(404).json({ message: "Filme ou série não foi encontrado!" });
-        res.json({ message: "Filme ou Série atualizado com sucesso!" })
+        //caso seja encontrado e editado
+        res.status(200).json({ message: "Filme ou Série atualizado com sucesso!" })
     }
     catch (erro) {
-        res.status(500).json({ erro: erro.message })
+        console.error(erro);
+        res.status(500).json({ erro: "Erro ao editar filme" })
     }
+    console.log("Corpo da requisição: ", req.body);
 }
 
 // deletar filmes
@@ -101,9 +107,10 @@ export const deleteMovie = async (req, res) => {
         const movie = await Movie.findByIdAndDelete(req.params.id);
 
         if (!movie) return res.status(404).json({ message: "Filme ou Série não foi encontrado!" });
-        res.json({ message: "Filme ou série deletado com sucesso!" })
+        res.status(200).json({ message: "Filme ou série deletado com sucesso!" })
     }
     catch (erro) {
-        res.status(500).json({ erro: erro.message })
+        res.status(500).json({ erro: "Erro ao deletar filme" })
     }
+    console.log("Corpo da requisição: ", req.body);
 }
