@@ -9,9 +9,13 @@ export default function useBuscar() {
   const [resultadoBuscado, setResultadoBuscado] = useState(false);
   const [filmeEmEdicao, setFilmeEmEdicao] = useState(null);
   const [statusEdicao, setStatusEdicao] = useState("idle");
+  const [carregando, setCarregando] = useState(false);
+  const [buscaFeita, setBuscaFeita] = useState(false);
 
   //busca filmes API e Banco
   async function buscarFilmes() {
+    setCarregando(true);
+    setBuscaFeita(false);
     setResultadoBuscado(true);
 
     try {
@@ -48,6 +52,8 @@ export default function useBuscar() {
       console.error("Erro ao buscar filmes", error);
       setFilmes([]);
     }
+    setCarregando(false);
+    setBuscaFeita(true);
   }
 
   // detalhar filmes da API de forma mais completa
@@ -106,20 +112,19 @@ export default function useBuscar() {
     }
   };
 
-
   //deletar o filme do Banco
   const deletarFilme = async (filme) => {
-  try {
-    await axios.delete(`https://miloneflix.onrender.com/movies/${filme._id}`);
-    setStatusEdicao("sucesso");
+    try {
+      await axios.delete(`https://miloneflix.onrender.com/movies/${filme._id}`);
+      setStatusEdicao("sucesso");
 
-    // Remove da lista local após deletar
-    setFilmes((prev) => prev.filter((f) => f._id !== filme._id));
-  } catch (err) {
-    console.error("Erro ao deletar filme:", err);
-    setStatusEdicao("erro");
-  }
-};
+      // Remove da lista local após deletar
+      setFilmes((prev) => prev.filter((f) => f._id !== filme._id));
+    } catch (err) {
+      console.error("Erro ao deletar filme:", err);
+      setStatusEdicao("erro");
+    }
+  };
 
   //garante a função de buscar filmes seja chamada apos 0.5s
   useEffect(() => {
@@ -141,12 +146,14 @@ export default function useBuscar() {
     resultadoBuscado,
     filmeEmEdicao,
     statusEdicao,
+    carregando,
+    buscaFeita,
     setBusca,
     buscarFilmes,
     buscarDetalhesFilmeTMDB,
     abrirModalEditar,
     fecharModal,
     salvarEdicao,
-    deletarFilme
+    deletarFilme,
   };
 }

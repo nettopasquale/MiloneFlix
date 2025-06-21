@@ -11,6 +11,8 @@ export default function Buscar() {
     resultadoBuscado,
     filmeEmEdicao,
     statusEdicao,
+    carregando,
+    buscaFeita,
     setBusca,
     buscarDetalhesFilmeTMDB,
     abrirModalEditar,
@@ -65,7 +67,7 @@ export default function Buscar() {
         )}
 
         {/* nenhum resultado */}
-        {resultadoBuscado && filmes.length === 0 && (
+        {resultadoBuscado && buscaFeita && !carregando && filmes.length === 0 && (
           <div className="text-white text-xl text-center space-y-4 mt-8">
             <p>Desculpe, o filme/série não foi encontrado :(</p>
             <div className="flex justify-center">
@@ -79,6 +81,7 @@ export default function Buscar() {
         {/* MODAL */}
         {filmeEmEdicao && (
           <ModalFilme
+            origem="buscar"
             filme={filmeEmEdicao}
             onClose={fecharModal}
             onSave={salvarEdicao} // passa para o modal

@@ -3,6 +3,7 @@ import InputModal from "../InputModal/InputModal";
 import useModal from "../../hooks/useModal";
 
 export default function ModalFilme({
+  origem,
   filme,
   onClose,
   onSave,
@@ -174,12 +175,14 @@ export default function ModalFilme({
                 </span>
               )}
             </div>
-            <input
-              type="file"
-              accept="image/*"
-              className="w-full p-2 mt-4 text-sm border rounded bg-white"
-              onChange={handleImageChange}
-            />
+            {origem != "buscar" || origem != "listar" && (
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="w-full p-2 mt-4 text-sm border rounded bg-white"
+                  onChange={handleImageChange}
+                />
+            )}
           </div>
         </div>
 
@@ -194,7 +197,7 @@ export default function ModalFilme({
           />
         </div>
 
-        {podeEditar && (
+        {origem === "buscar" && podeEditar && (
           <div className="mt-8 flex justify-end">
             <button
               className="bg-green-600 text-white px-4 py-2 rounded font-bold"

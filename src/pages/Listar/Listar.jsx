@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import PageLayout from "../../components/PageLayout/PageLayout";
 import CardFilme from "../../components/CardFilme/CardFilme";
 import ModalFilme from "../../components/ModalFIlme/ModalFilme";
@@ -104,6 +102,7 @@ export default function Listar() {
 
       {/* Modal */}
       <ModalFilme
+        origem="listar"
         filme={filmeSelecionado}
         onClose={() => setFilmeSelecionado(null)}
       />
