@@ -5,7 +5,7 @@ const movieModel = new mongoose.Schema({
     diretor: { type: String, required: true },
     ano: { type: Number, required: true },
     genero: { type: String, required: true },
-    duracao: { type: String, required: true },
+    duracao: { type: Number, required: true },
     elenco: { type: String, required: true },
     avaliacao: { type: Number, required: true },
     classificacao: { type: String, required: true },
